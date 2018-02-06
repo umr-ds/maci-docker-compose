@@ -1,0 +1,4 @@
+[submodule "maci-backend/MassExecution"]
+	path = maci-backend/MassExecution
+	url = https://github.com/AlexanderFroemmgen/maci
+	branch = master
