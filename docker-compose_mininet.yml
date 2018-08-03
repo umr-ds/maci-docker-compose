@@ -6,7 +6,7 @@ services:
     deploy:
       replicas: 1
     ports: 
-      - 8888:8888
+      - 8889:8888
     volumes:
       - jupyter-files:/home/jovyan
     depends_on: 
@@ -18,11 +18,12 @@ services:
       - simulation-files:/maci/maci_backend/AppData/Simulations
       - jupyter-files:/maci/maci_backend/AppData/JupyterNotebook
       - worker-files:/maci/maci_backend/AppData/WorkerScript
+      - ./maci_data:/maci_data
     ports: 
       - 63658:63658
   mininet:
     build:
-      context: ./worker
+      context: ./mininet-worker
     tty: true
     privileged: true
     tty: true
