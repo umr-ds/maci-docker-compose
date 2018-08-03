@@ -23,7 +23,7 @@ services:
       - 63658:63658
   mininet:
     build:
-      context: ./mininet-worker
+      context: ./mininet_worker
     tty: true
     privileged: true
     tty: true

@@ -26,7 +26,7 @@ def param(key, default = None):
 			return default
 		else:
 			print 'Requested parameter %s is undefined. Aborting experiment...' % key
-			sys.exit(1) 
+			sys.exit(1)
 	parameters.requestedParams.add(key)
 	return parameters.params[key]
 
@@ -43,7 +43,7 @@ def addLogfile(filename):
 def addBinaryFile(filename):
 	print "adding binary file", filename
 	try:
-		with open("binary_files.txt", 'w') as myfile:
+		with open("binary_files.txt", 'a') as myfile:
 			myfile.write(filename + "\n")
 	except IOError:
 		warn(filename, "IO Error adding binary file with MACI.")
@@ -76,7 +76,7 @@ def checkRequestedParams():
 		warn("Framework", "Parameter " + str(paramKey) + " with value " + str(paramValue) + " was not requested by experiment")
 
 def loadTmpResults():
-        try:    
+        try:
                 with open('result_tmp.json', 'r') as file:
                         for line in file:
                                 measurements.append(json.loads(line))
@@ -84,7 +84,7 @@ def loadTmpResults():
                 pass
 
 def loadTmpMessages():
-        try:    
+        try:
                 with open('message_tmp.json', 'r') as file:
                         for line in file:
                                 messages.append(json.loads(line))
