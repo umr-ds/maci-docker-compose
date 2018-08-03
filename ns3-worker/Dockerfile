@@ -4,18 +4,12 @@ RUN apt-get update
 
 # General dependencies
 RUN apt-get install -y \
-  git \
+  gcc \
+  g++ \
   mercurial \
-  wget \
-  vim \
-  autoconf \
-  bzr \
-  cvs \
-  unrar \
-  build-essential \
-  clang \
-  valgrind \
+  git \
   gsl-bin \
+  libgsl2 \
   libgsl-dev \
   flex \
   bison \
@@ -24,38 +18,23 @@ RUN apt-get install -y \
   sqlite \
   sqlite3 \
   libsqlite3-dev \
-  libxml2 \
-  libxml2-dev \
-  vtun \
-  lxc \
-  iperf \
-  iproute2 \
-  iputils-ping \
-  net-tools \
-  socat build-essential \
-  tcpdump \
-  x11-xserver-utils \
-  xterm \
   cmake \
   libc6-dev \
   libc6-dev-i386 \
-  lsb-release \
-  g++-multilib
+  wget \
+  vim
 
 # Python components
 RUN apt-get install -y \
   python \
   python-dev \
-  python-monotonic \
   python-setuptools \
-  python-minimal \
+  python-monotonic \
   python-subprocess32 \
-  python-pygraphviz \
-  python-kiwi \
-  python-gnome2 \
-  python-rsvg \
-  python-gnome2-desktop-dev \
-  python-pygoocanvas
+  python-pip \
+  build-essential 
+
+RUN pip install cxxfilt
 
 WORKDIR /root
 
