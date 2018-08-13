@@ -6,7 +6,7 @@ The service is launched with _Docker Compose_ initiating and connecting three _C
 
 - _MACI_Backend_ running the management framework based on .Net
 - _Jupyter-Notebook_ for analyzing experiments
-- _Mininet-Worker_ to run experiments (multiple instances can be started, however, be aware of side effects when executing parallel network experiments on the same host)
+- _*-Worker_ to run experiments (multiple instances can be started, however, be aware of side effects when executing parallel network experiments on the same host).
 
 ## Getting Started
 ### Setup Docker
@@ -50,27 +50,16 @@ git submodule init
 git submodule update --remote
 ```
 ### Start
-
-- Attached (logs visible)
-```docker-compose up --build```
-
-- Detached 
-```docker-compose up -d --build```
-
-
-## FAQ
-
-- Reset (CAUTION all local docker instances and volumes are removed)
-    ```bash
-    docker stop $(docker ps -aq)
-    docker rm $(docker ps -aq)
-    docker volume prune -f
-    ```
+The command below starts all required containers. Replace `<WORKER>` with the worker you wish. The CORE worker also offers a GUI at `http://localhost:5900` (not working yet)
+```
+docker-compose -f docker-compose.yml -f <WORKER>.yml up --build
+```
 
 - How do I start up more workers
 
-    Newer Docker-Compose releases support the flag  ```--scale mininet=n``` to launch n workers. 
+    Newer Docker-Compose releases support the flag  ```--scale <WORKER>=n``` to launch n workers. 
 ## Contact
 
  - [Denny Stohr](https://github.com/dstohr/) 
  - [Alexander Frömmgen](https://github.com/AlexanderFroemmgen)
+ - [University of Marburg, Distributed Systems](https://github.com/umr-ds)
