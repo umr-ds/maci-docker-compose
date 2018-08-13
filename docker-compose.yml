@@ -19,18 +19,6 @@ services:
             - ./maci_data:/maci_data
         ports:
             - "63658:63658"
-    ns3:
-        build: 
-            context: ./ns3-worker
-        tty: true
-        privileged: true
-        volumes:
-            - /lib/modules:/lib/modules
-            - worker-files:/worker
-        depends_on:
-            - maci-backend
-        restart: always
-        hostname: ns3
 
 volumes:
     simulation-framework:

@@ -16,10 +16,6 @@ RUN set -ex; \
 
 WORKDIR /worker
 
-#RUN git clone git://github.com/mininet/mininet && \
- #   cd mininet && \
-#    make install 
-
 RUN cp /usr/bin/ovs-testcontroller /usr/bin/ovs-controller
 COPY entrypoint.sh /
 RUN ["chmod", "+x", "/entrypoint.sh"]

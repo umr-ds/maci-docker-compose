@@ -1,0 +1,24 @@
+version: "3"
+services:
+  mininet:
+    build:
+      context: ./mininet_worker
+    tty: true
+    privileged: true
+    tty: true
+    environment:
+     - DISPLAY
+    volumes:
+      - /lib/modules:/lib/modules
+      - worker-files:/worker
+    depends_on: 
+      - maci-backend
+    restart: always
+    hostname: mininet
+
+
+volumes:
+  simulation-framework:
+  simulation-files:
+  jupyter-files:
+  worker-files:
