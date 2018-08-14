@@ -78,7 +78,8 @@ RUN apt install -y \
     python-lxml \
     python-enum34 \
     gawk \
-    libreadline-dev
+    libreadline-dev \
+    quagga
 
 # Python components
 RUN apt-get install -y \
@@ -89,13 +90,6 @@ RUN apt-get install -y \
   	python-subprocess32 \
   	python-pip \
   	build-essential
-
-RUN wget https://downloads.pf.itd.nrl.navy.mil/ospf-manet/quagga-0.99.21mr2.2/quagga-0.99.21mr2.2.tar.gz && \
-    tar xzf quagga-0.99.21mr2.2.tar.gz && \
-    cd quagga-0.99.21mr2.2 && \
-    ./configure --enable-user=root --enable-group=root --with-cflags=-ggdb --sysconfdir=/usr/local/etc/quagga --enable-vtysh --localstatedir=/var/run/quagga && \
-    make && \
-    make install
 
 RUN wget https://github.com/coreemu/core/releases/download/release-5.1/python-core_systemd_5.1_all.deb && \
     wget https://github.com/coreemu/core/releases/download/release-5.1/core-gui_5.1_amd64.deb && \
