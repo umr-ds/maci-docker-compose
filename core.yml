@@ -4,7 +4,7 @@ services:
     maci-backend:
     core:
         build: 
-            context: ./core-worker
+            context: ./core_worker
         tty: true
         privileged: true
         cap_add:
