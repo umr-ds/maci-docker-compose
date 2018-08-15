@@ -1,8 +1,8 @@
 version: "3"
 services:
     mininet:
-        build:
-            context: ./mininet_worker
+        image: maciresearch/mininet_worker
+        build: ./mininet_worker
         tty: true
         privileged: true
         environment:

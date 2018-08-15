@@ -1,8 +1,8 @@
 version: "3"
 services:
     core:
-        build: 
-            context: ./core_worker
+        image: maciresearch/core_worker
+        build: ./core_worker
         tty: true
         privileged: true
         ports:

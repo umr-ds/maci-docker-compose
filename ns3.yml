@@ -1,8 +1,8 @@
 version: "3"
 services:
     ns3:
-        build: 
-            context: ./ns3_worker
+        image: maciresearch/ns3_worker
+        build: ./ns3_worker
         tty: true
         privileged: true
         volumes:

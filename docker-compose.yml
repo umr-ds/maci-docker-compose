@@ -10,6 +10,7 @@ services:
         depends_on:
             - maci-backend
     maci-backend:
+        image: maciresearch/maci-backend
         build: ./maci-backend
         volumes:
             - simulation-framework:/maci/maci_backend/AppData/SimulationFramework

@@ -2,11 +2,11 @@
 
 This repository provides a set of instructions to create _Docker_ containers to start a full working set of the _MACI_ framework published on https://maci-research.net/
 
-The service is launched with _Docker Compose_ initiating and connecting three _Containers_:
+The service is launched with _Docker Compose_ initiating and connecting different _Containers_:
 
-- _MACI_Backend_ running the management framework based on .Net
-- _Jupyter-Notebook_ for analyzing experiments
-- _*-Worker_ to run experiments (multiple instances can be started, however, be aware of side effects when executing parallel network experiments on the same host).
+- _maci-backend_ running the management framework based on .Net
+- _jupyter_ for analyzing experiments
+- _*_worker_ to run experiments (multiple instances can be started, however, be aware of side effects when executing parallel network experiments on the same host).
 
 ## Getting Started
 ### Setup Docker
@@ -45,19 +45,68 @@ service docker start
 ### Load Submodules
 
 The _MACI_ framework is loaded as a git submodule and needs to be loaded before starting the container:
+
 ```bash
 git submodule init
 git submodule update --remote
 ```
-### Start
-The command below starts all required containers. Replace `<WORKER>` with the worker you wish. The CORE worker also offers a GUI at `http://localhost:5900` (not working yet)
+
+### Start Backend with a Mininet Worker
+The command below starts all required containers. Replace `<WORKER>` with the worker you wish. The MACI WebUI will be available at [http://localhost:63658](http://localhost:63658)
+
 ```
-docker-compose -f docker-compose.yml -f <WORKER>.yml up --build
+docker-compose -f docker-compose.yml -f mininet.yml up
 ```
 
-- How do I start up more workers
+### Stop Backend
 
-    Newer Docker-Compose releases support the flag  ```--scale <WORKER>=n``` to launch n workers. 
+```
+docker-compose -f docker-compose.yml -f mininet.yml down
+```
+
+
+
+## Configuring Workers
+
+### Bootstraping Methods
+ - From DockerHub to circumvent the long build process of the images:
+
+```
+docker pull maciresearch/maci-backend
+docker pull maciresearch/core_worker
+docker pull macireserach/ns3_worker
+docker pull maciresearch/mininet_worker
+```
+
+ - Build images from Dockerfiles:
+
+```
+docker build -t maciresearch/maci-backend maci-backend/
+docker build -t maciresearch/mininet_worker mininet_worker/
+docker build -t maciresearch/core_worker core_worker/
+docker build -t maciresearch/ns3_worker ns3_worker/
+```
+
+### Scale Number of local Workers
+Run <N> instances of one <WORKER> (core | ns3 | mininet | ...).
+```
+docker-compose -f docker-compose.yml -f <WORKER>.yml --scale <WORKER>=<N> up
+``` 
+
+### Start remote workers
+1. Build or pull the Docker images as before.
+2. Run a worker and provide the backend address from the worker's perspectiveand idle shutdown time (optional):
+
+```
+docker run --rm -d -e BACKEND=<BACKEND_ADDRESS> -e IDLE=3600 maciresearch/mininet_worker
+```
+
+Stop the container using the id provided after start:
+
+```
+docker stop <CONTAINER_ID>
+```                                                                                                   
+
 ## Contact
 
  - [Denny Stohr](https://github.com/dstohr/) 
