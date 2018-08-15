@@ -79,7 +79,8 @@ RUN apt install -y \
     python-enum34 \
     gawk \
     libreadline-dev \
-    quagga
+    quagga \
+    iperf
 
 # Python components
 RUN apt-get install -y \
