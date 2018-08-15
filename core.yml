@@ -10,8 +10,8 @@ services:
         cap_add:
             - ALL
         ports:
-            - "8089:8080"
-            - "5900:5900"
+            - "8080-8099:8080"
+            - "5900-5909:5900"
         volumes:
             - worker-files:/worker
         depends_on:
