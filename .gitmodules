@@ -2,9 +2,3 @@
 	path = maci-backend/MassExecution
 	url = https://github.com/AlexanderFroemmgen/maci
 	branch = master
-[submodule "maci_data/ExperimentTemplates/SimpleCoreExample"]
-	path = maci_data/ExperimentTemplates/SimpleCoreExample
-	url = git@github.com:umr-ds/maci-core-example.git
-[submodule "maci_data/ExperimentTemplates/SimpleNS3Example"]
-	path = maci_data/ExperimentTemplates/SimpleNS3Example
-	url = git@github.com:umr-ds/maci-ns3-example.git
