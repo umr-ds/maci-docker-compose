@@ -3,7 +3,7 @@ FROM ubuntu:16.04
 ENV BACKEND=maci-backend
 ENV IDLE=-1
 
-RUN apt-get update
+RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     gcc \
     g++ \
