@@ -1,5 +1,8 @@
 FROM buildpack-deps:artful-scm
 
+ENV BACKEND=maci-backend
+ENV IDLE=-1
+
 RUN set -ex; \
 	apt-get update; \
 	apt-get install -y --no-install-recommends \

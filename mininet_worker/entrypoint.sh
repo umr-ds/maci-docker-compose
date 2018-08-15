@@ -6,6 +6,10 @@ sleep 10
 service openvswitch-switch start
 ovs-vsctl set-manager ptcp:6640
 
-python -u /worker/worker.py --backend maci-backend:63658 --maxidletime -1 --capabilities mininet --no-clear-tmp-dir
+cd /worker
+
+wget $BACKEND:63658/workers/script.py -O worker.py
+
+python -u /worker/worker.py --backend $BACKEND:63658 --capabilities mininet --maxidletime $IDLE --no-clear-tmp-dir
 
 bash
