@@ -1,26 +1,15 @@
 version: "3"
 services:
-    jupyter:
-    maci-backend:
     core:
         build: 
             context: ./core_worker
         tty: true
         privileged: true
-        cap_add:
-            - ALL
         ports:
             - "8080-8099:8080"
             - "5900-5909:5900"
-        volumes:
-            - worker-files:/worker
         depends_on:
             - maci-backend
         restart: always
         hostname: core
 
-volumes:
-    simulation-framework:
-    simulation-files:
-    jupyter-files:
-    worker-files:

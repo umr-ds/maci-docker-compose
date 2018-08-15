@@ -2,6 +2,5 @@
 
 sleep 10
 
-python -u /worker/worker.py --backend maci-backend:63658 --maxidletime -1 --capabilities ns3 --no-clear-tmp-dir
-
-bash
+wget $BACKEND:63658/workers/script.py -O /worker/worker.py
+python -u /worker/worker.py --backend $BACKEND:63658 --capabilities ns3 --maxidletime $IDLE --no-clear-tmp-dir

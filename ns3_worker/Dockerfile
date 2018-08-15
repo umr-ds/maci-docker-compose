@@ -1,5 +1,8 @@
 FROM ubuntu:16.04
 
+ENV BACKEND=maci-backend
+ENV IDLE=-1
+
 RUN apt-get update
 
 # General dependencies
