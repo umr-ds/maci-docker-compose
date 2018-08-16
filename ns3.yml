@@ -5,6 +5,8 @@ services:
         build: ./ns3_worker
         tty: true
         privileged: true
+        cap_add:
+            - ALL
         volumes:
             - /lib/modules:/lib/modules
         depends_on:

@@ -5,9 +5,13 @@ services:
         build: ./core_worker
         tty: true
         privileged: true
+        cap_add:
+            - ALL
         ports:
             - "8080-8099:8080"
             - "5900-5909:5900"
+        volumes:
+             - /lib/modules:/lib/modules
         depends_on:
             - maci-backend
         restart: always
