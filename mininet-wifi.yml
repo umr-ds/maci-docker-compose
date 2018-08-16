@@ -1,18 +1,18 @@
 version: "3"
 services:
     mininet-wifi:
-        build:
-            context: ./mininet-wifi_worker
+        image: maciresearch/core_worker
+        build: ./mininet-wifi_worker
+		tty: true
         privileged: true
+        environment:
+			- DISPLAY
+        volumes:
+            - /sys:/sys
+        depends_on:
+            - maci-backend
+        restart: always
+        hostname: mininet-wifi
         cap_add:
             - ALL
         network_mode: "host"
-        tty: true
-        environment:
-            - DISPLAY
-        depends_on:
-            - maci-backend
-        volumes:
-            - /sys:/sys
-        restart: always
-        hostname: mininet-wifi

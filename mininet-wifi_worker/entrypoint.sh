@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# We have to install all required kernel modules at runtime...
-apt-get install -y linux-modules-extra-`uname -r`
+# We have to install all required kernel modules at runtime to match the Docker kernel of the host...
+apt-get update && apt-get install -y linux-modules-extra-`uname -r`
 
 service openvswitch-switch start
 ovs-vsctl set-manager ptcp:6640
