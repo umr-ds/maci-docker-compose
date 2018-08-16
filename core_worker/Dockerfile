@@ -21,6 +21,7 @@ RUN apt-get update \
     unzip \
     bridge-utils \
     ebtables \
+    kmod \
     iproute2 \
     iproute \
     libev4 \

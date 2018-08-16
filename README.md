@@ -98,13 +98,13 @@ docker-compose -f docker-compose.yml -f <WORKER>.yml --scale <WORKER>=<N> up
 2. Run a worker and provide the backend address from the worker's perspectiveand idle shutdown time (optional):
 
 ```
-docker run --rm --privileged -d -e BACKEND=<BACKEND_ADDRESS> -e IDLE=3600 maciresearch/mininet_worker
+docker run --rm --privileged  -v /lib/modules:/lib/modules -e BACKEND=<BACKEND_ADDRESS> -e IDLE=3600 -d maciresearch/mininet_worker
 ```
 
-Note: In addition to the extended privileges the core worker also needs linux kernel permissions and the kernel modules folder:
+Note: In addition to the extended privileges the core worker also needs NET_ADMIN linux kernel capabilities and access to the kernel modules:
 
 ```
-docker run --rm --privileged --cap-add=ALL -d -v /lib/modules:/lib/modules -e BACKEND=<BACKEND_ADDRESS> -e IDLE=3600 maciresearch/core_worker
+docker run --rm --privileged  -v /lib/modules:/lib/modules -e BACKEND=<BACKEND_ADDRESS> -e IDLE=3600 -d  --cap-add=NET_ADMIN maciresearch/mininet_worker
 ```
 
 ### Stop the container
