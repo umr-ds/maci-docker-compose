@@ -107,6 +107,12 @@ Note: In addition to the extended privileges the core worker also needs NET_ADMI
 docker run --rm --privileged  -v /lib/modules:/lib/modules -e BACKEND=<BACKEND_ADDRESS> -e IDLE=3600 -d  --cap-add=NET_ADMIN maciresearch/mininet_worker
 ```
 
+Note: In addition to the privileges granted the CORE worker, mininet-wifi needs also access to the host network and a mounted `/sys` folder:
+
+```
+docker run --rm --privileged --net=host -v /sys:/sys -e BACKEND=<BACKEND_ADDRESS> --cap-add=ALL maci-docker-compose_mininet-wifi
+```
+
 ### Stop the container
 ... using the id provided after start:
 
