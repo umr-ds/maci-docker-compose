@@ -104,7 +104,7 @@ docker run --rm --privileged  -v /lib/modules:/lib/modules -e BACKEND=<BACKEND_A
 Note: In addition to the extended privileges the core worker also needs NET_ADMIN linux kernel capabilities and access to the kernel modules:
 
 ```
-docker run --rm --privileged  -v /lib/modules:/lib/modules -e BACKEND=<BACKEND_ADDRESS> -e IDLE=3600 -d  --cap-add=NET_ADMIN maciresearch/mininet_worker
+docker run --rm --privileged  -v /lib/modules:/lib/modules -e BACKEND=<BACKEND_ADDRESS> -e IDLE=3600 -d  --cap-add=NET_ADMIN maciresearch/core_worker
 ```
 
 ### Stop the container
