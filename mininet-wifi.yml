@@ -1,12 +1,12 @@
 version: "3"
 services:
     mininet-wifi:
-        image: maciresearch/core_worker
+        image: maciresearch/mininet-wifi_worker
         build: ./mininet-wifi_worker
-		tty: true
+        tty: true
         privileged: true
         environment:
-			- DISPLAY
+            - DISPLAY
         volumes:
             - /sys:/sys
         depends_on:

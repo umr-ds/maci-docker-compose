@@ -6,10 +6,10 @@ services:
         tty: true
         privileged: true
         environment:
-			- DISPLAY
+            - DISPLAY
         volumes:
-			- /lib/modules:/lib/modules
+            - /lib/modules:/lib/modules
         depends_on: 
-			- maci-backend
+            - maci-backend
         restart: always
         hostname: mininet
