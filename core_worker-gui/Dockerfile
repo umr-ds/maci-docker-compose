@@ -13,6 +13,16 @@ RUN wget --no-check-certificate https://github.com/coreemu/core/releases/downloa
     && dpkg -i core-gui_5.1_amd64.deb \
     && rm core-gui_5.1_amd64.deb
 
+# development tools
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    iputils-ping \
+    ifconfig \
+    net-tools \
+    vim \
+    nano \
+    && rm -rf /var/lib/apt/lists/*
+
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 WORKDIR /worker
