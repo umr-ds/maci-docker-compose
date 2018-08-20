@@ -5,6 +5,7 @@ sleep 1
 
 core-gui &
 
+# connect to maci-backend or open a shell
 wget $BACKEND:63658/workers/script.py -O /worker/worker.py \
     || bash
 

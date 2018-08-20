@@ -1,11 +1,14 @@
 FROM maciresearch/core_worker
 
+ENV DEBIAN_FRONTEND noninteractive
+
 # CORE dependencies
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     tcl \
     tk \
     libtk-img \
+    aterm \
     && rm -rf /var/lib/apt/lists/*
 
 # CORE gui
