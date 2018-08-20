@@ -8,7 +8,7 @@ RUN apt-get update \
     libtk-img \
     && rm -rf /var/lib/apt/lists/*
 
-# CORE backend
+# CORE gui
 RUN wget --no-check-certificate https://github.com/coreemu/core/releases/download/release-5.1/core-gui_5.1_amd64.deb \
     && dpkg -i core-gui_5.1_amd64.deb \
     && rm core-gui_5.1_amd64.deb
@@ -17,7 +17,6 @@ RUN wget --no-check-certificate https://github.com/coreemu/core/releases/downloa
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     iputils-ping \
-    ifconfig \
     net-tools \
     vim \
     nano \
