@@ -101,16 +101,16 @@ docker-compose -f docker-compose.yml -f <WORKER>.yml --scale <WORKER>=<N> up
 docker run --rm --privileged  -v /lib/modules:/lib/modules -e BACKEND=<BACKEND_ADDRESS> -e IDLE=3600 -d maciresearch/mininet_worker
 ```
 
-Note: In addition to the extended privileges the core worker also needs NET_ADMIN linux kernel capabilities and access to the kernel modules:
+##### CORE Worker: In addition to the extended privileges it also needs NET_ADMIN linux kernel capabilities and access to the kernel modules:
 
 ```
 docker run --rm --privileged  -v /lib/modules:/lib/modules -e BACKEND=<BACKEND_ADDRESS> -e IDLE=3600 -d  --cap-add=NET_ADMIN maciresearch/core_worker
 ```
 
-Note: In addition to the privileges granted the CORE worker, mininet-wifi needs also access to the host network and a mounted `/sys` folder:
+##### Mininet WiFi: In addition to the granted privileges mininet-wifi needs also access to the host network and a mounted `/sys` folder:
 
 ```
-docker run --rm --privileged --net=host -v /sys:/sys -e BACKEND=<BACKEND_ADDRESS> --cap-add=ALL maci-docker-compose_mininet-wifi
+docker run --rm --privileged --net=host -v /sys:/sys -e BACKEND=<BACKEND_ADDRESS> -e IDLE=3600 -d --cap-add=ALL maciresearch/mininet-wifi_worker
 ```
 
 ### Stop the container
