@@ -8,7 +8,7 @@ RUN apt-get update \
     tcl \
     tk \
     libtk-img \
-    aterm \
+    lxterminal \
     && rm -rf /var/lib/apt/lists/*
 
 # CORE gui
