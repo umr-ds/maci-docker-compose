@@ -9,6 +9,7 @@ RUN apt-get update \
     wget \
     bridge-utils \
     ebtables \
+    kmod \
     iproute2 \
     libev4 \
     python \
