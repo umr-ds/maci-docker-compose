@@ -3,7 +3,7 @@
 core-daemon > /var/log/core-daemon.log 2>&1 &
 sleep 1
 
-core-gui > /var/log/core-gui.log 2>&1 &
+core-gui $CORE_PARAMS > /var/log/core-gui.log 2>&1 &
 
 # connect to maci-backend or open a shell
 wget $BACKEND:63658/workers/script.py -O /worker/worker.py &&
