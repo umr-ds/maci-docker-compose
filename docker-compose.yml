@@ -1,12 +1,13 @@
 version: "3"
 services:
     jupyter:
-        image: jupyter/scipy-notebook
-        command: ["start-notebook.sh", "--NotebookApp.token='' --allow-root"]
+        image: jupyter/datascience-notebook
+        command: ["start.sh", "jupyter", "lab", "--NotebookApp.token='' --allow-root"]
         ports:
-            - "8889:8888"
+            - "8888:8888"
         volumes:
             - jupyter-files:/home/jovyan
+            - ./maci_data:/maci_data
         depends_on:
             - maci-backend
     maci-backend:
