@@ -6,8 +6,8 @@ services:
         ports:
             - "8888:8888"
         volumes:
-            - jupyter-files:/home/jovyan
             - ./maci_data:/maci_data
+            - ./maci_data/notebooks:/home/jovyan
         depends_on:
             - maci-backend
     maci-backend:
