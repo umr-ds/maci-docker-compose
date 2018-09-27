@@ -1,4 +1,4 @@
-FROM maciresearch/core_worker
+FROM maciresearch/core_worker:0.2
 
 ENV DEBIAN_FRONTEND noninteractive
 
