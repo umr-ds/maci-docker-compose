@@ -14,14 +14,15 @@ RUN apt-get update \
     libev4 \
     python \
     python-enum34 \
+    python-lxml \
     python3 \
     quagga \
     && rm -rf /var/lib/apt/lists/*
 
 # CORE backend
-RUN wget --no-check-certificate https://github.com/coreemu/core/releases/download/release-5.1/python-core_systemd_5.1_all.deb \
-    && dpkg -i python-core_systemd_5.1_all.deb \
-    && rm python-core_systemd_5.1_all.deb
+RUN wget --quiet --no-check-certificate https://github.com/coreemu/core/releases/download/release-5.2/python-core_sysv_5.2_all.deb \
+    && dpkg -i python-core_sysv_5.2_all.deb \
+    && rm python-core_sysv_5.2_all.deb
 
 # MACI dependencies
 RUN apt-get update \

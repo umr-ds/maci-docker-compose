@@ -12,9 +12,9 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # CORE gui
-RUN wget --no-check-certificate https://github.com/coreemu/core/releases/download/release-5.1/core-gui_5.1_amd64.deb \
-    && dpkg -i core-gui_5.1_amd64.deb \
-    && rm core-gui_5.1_amd64.deb
+RUN wget --no-check-certificate https://github.com/coreemu/core/releases/download/release-5.2/core-gui_5.2_amd64.deb \
+    && dpkg -i core-gui_5.2_amd64.deb \
+    && rm core-gui_5.2_amd64.deb
 
 # development tools
 RUN apt-get update \
