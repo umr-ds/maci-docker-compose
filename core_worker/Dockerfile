@@ -1,7 +1,9 @@
 FROM ubuntu:18.04
+LABEL maintainer="hoechst@mathematik.uni-marburg.de"
+LABEL name="maciresearch/core_worker"
+LABEL version="0.3"
 
-ENV BACKEND=maci-backend
-ENV IDLE=-1
+ENV DEBIAN_FRONTEND noninteractive
 
 # CORE dependencies
 RUN apt-get update \
@@ -17,12 +19,26 @@ RUN apt-get update \
     python-lxml \
     python3 \
     quagga \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get clean
 
 # CORE backend
 RUN wget --quiet --no-check-certificate https://github.com/coreemu/core/releases/download/release-5.2/python-core_sysv_5.2_all.deb \
     && dpkg -i python-core_sysv_5.2_all.deb \
     && rm python-core_sysv_5.2_all.deb
+
+# CORE gui dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    tcl \
+    tk \
+    libtk-img \
+    lxterminal \
+    && apt-get clean
+
+# CORE gui
+RUN wget --no-check-certificate https://github.com/coreemu/core/releases/download/release-5.2/core-gui_5.2_amd64.deb \
+    && dpkg -i core-gui_5.2_amd64.deb \
+    && rm core-gui_5.2_amd64.deb
 
 # MACI dependencies
 RUN apt-get update \
@@ -30,7 +46,19 @@ RUN apt-get update \
     python-subprocess32 \
     python-monotonic \
     iperf \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get clean
+
+# development tools
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    iputils-ping \
+    net-tools \
+    vim \
+    nano \
+    && apt-get clean
+
+ENV BACKEND=maci-backend
+ENV IDLE=-1
 
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
