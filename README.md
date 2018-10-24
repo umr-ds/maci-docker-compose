@@ -110,7 +110,7 @@ docker run --rm --privileged  -v /lib/modules:/lib/modules -e BACKEND=<BACKEND_A
 For development purposes there is a core-gui adaption. The container tries to connect to an x server running on your desktop.  Important: authorize the host to connect: `xhost + <DOCKER_HOST_IP>`, Docker for mac users can use the hostname `docker.for.mac.localhost`.
 
 ```
-docker run --rm --privileged  -v /lib/modules:/lib/modules -it --cap-add=NET_ADMIN -e DISPLAY=docker.for.mac.localhost:0 maciresearch/core_worker-gui
+docker run --rm --privileged  -v /lib/modules:/lib/modules -it --cap-add=NET_ADMIN -e DISPLAY=docker.for.mac.localhost:0 maciresearch/core_worker
 ```
 
 ##### Mininet WiFi: In addition to the granted privileges mininet-wifi needs also access to the host network and a mounted `/sys` folder:
