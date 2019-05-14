@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "# Starting SSHD"
+/usr/sbin/sshd -D &
+
 echo "# Starting CORE daemon"
 core-daemon > /var/log/core-daemon.log 2>&1 &
 sleep 1
@@ -16,7 +19,7 @@ if [ ! -z "$DISPLAY" ]; then
     echo "# Waiting until core-gui is closed..."
     wait $CORE_GUI_PID
 
-else
+elif [ ! -z "$BACKEND" ]; then
     echo "# Starting MACI worker (BACKEND=$BACKEND)"
     wget $BACKEND:63658/workers/script.py -O /worker/worker.py &&
         python -u /worker/worker.py --backend $BACKEND:63658 --capabilities core --maxidletime $IDLE --no-clear-tmp-dir &&
@@ -24,4 +27,7 @@ else
 
     echo "# Couldn't connect to MACI backend." && 
         exit 1
+else
+    echo "# Dropping into bash (exit with ^D or \`exit\`)"
+    bash
 fi

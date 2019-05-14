@@ -48,6 +48,14 @@ RUN apt-get update \
     iperf \
     && apt-get clean
 
+# install ssh deamon
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    ssh \
+    && apt-get clean
+COPY id_ed25519.pub /root/.ssh/authorized_keys
+EXPOSE 22
+
 # development tools
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -57,7 +65,6 @@ RUN apt-get update \
     nano \
     && apt-get clean
 
-ENV BACKEND=maci-backend
 ENV IDLE=-1
 
 ADD entrypoint.sh /entrypoint.sh
