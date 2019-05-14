@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.0.5-sdk-2.1.4-jessie
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2
 
 #https://github.com/docker-library/buildpack-deps/blob/587934fb063d770d0611e94b57c9dd7a38edf928/jessie/Dockerfile
 RUN set -ex; \
