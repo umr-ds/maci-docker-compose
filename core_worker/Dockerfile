@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 LABEL maintainer="hoechst@mathematik.uni-marburg.de"
 LABEL name="maciresearch/core_worker"
-LABEL version="0.3"
+LABEL version="0.4.2"
 
 ENV DEBIAN_FRONTEND noninteractive
 
