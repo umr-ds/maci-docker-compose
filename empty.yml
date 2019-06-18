@@ -1,0 +1,11 @@
+version: "3"
+services:
+    empty:
+        image: maciresearch/empty_worker
+        build: ./empty_worker
+        tty: true
+        depends_on:
+            - maci-backend
+        restart: always
+        hostname: empty
+
