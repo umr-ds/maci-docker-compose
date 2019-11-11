@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 LABEL maintainer="hoechst@mathematik.uni-marburg.de"
 LABEL name="maciresearch/core_worker"
-LABEL version="0.5"
+LABEL version="0.5.1"
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -14,10 +14,9 @@ RUN apt-get update \
     kmod \
     iproute2 \
     libev4 \
-    python \
-    python-enum34 \
-    python-lxml \
     python3 \
+    python3-pip \
+    python3-future \
     quagga \
     tcl \
     tk \
@@ -25,7 +24,12 @@ RUN apt-get update \
     lxterminal \
     ethtool \
     && apt-get clean
-    
+
+RUN pip3 install \
+    grpcio \
+    protobuf \
+    lxml
+
 # CORE
 RUN wget --quiet --no-check-certificate https://github.com/coreemu/core/releases/download/release-5.5.2/core_python3_5.5.2_amd64.deb \
     && dpkg -i core_python3_5.5.2_amd64.deb \
