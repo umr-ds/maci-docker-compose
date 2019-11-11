@@ -19,26 +19,17 @@ RUN apt-get update \
     python-lxml \
     python3 \
     quagga \
-    && apt-get clean
-
-# CORE backend
-RUN wget --quiet --no-check-certificate https://github.com/coreemu/core/releases/download/release-5.2.1/python-core_sysv_5.2.1_all.deb \
-    && dpkg -i python-core_sysv_5.2.1_all.deb \
-    && rm python-core_sysv_5.2.1_all.deb
-
-# CORE gui dependencies
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
     tcl \
     tk \
     libtk-img \
     lxterminal \
+    ethtool \
     && apt-get clean
-
-# CORE gui
-RUN wget --no-check-certificate https://github.com/coreemu/core/releases/download/release-5.2.1/core-gui_5.2.1_amd64.deb \
-    && dpkg -i core-gui_5.2.1_amd64.deb \
-    && rm core-gui_5.2.1_amd64.deb
+    
+# CORE
+RUN wget --quiet --no-check-certificate https://github.com/coreemu/core/releases/download/release-5.5.2/core_python3_5.5.2_amd64.deb \
+    && dpkg -i core_python3_5.5.2_amd64.deb \
+    && rm core_python3_5.5.2_amd64.deb
 
 # MACI dependencies
 RUN apt-get update \
