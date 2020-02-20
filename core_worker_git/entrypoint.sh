@@ -22,7 +22,7 @@ if [ ! -z "$DISPLAY" ]; then
 elif [ ! -z "$BACKEND" ]; then
     echo "# Starting MACI worker (BACKEND=$BACKEND)"
     wget $BACKEND:63658/workers/script.py -O /worker/worker.py &&
-        python -u /worker/worker.py --backend $BACKEND:63658 --capabilities core --maxidletime $IDLE --no-clear-tmp-dir &&
+        python3 -u /worker/worker.py --backend $BACKEND:63658 --capabilities core --maxidletime $IDLE --no-clear-tmp-dir &&
         exit
 
     echo "# Couldn't connect to MACI backend." && 

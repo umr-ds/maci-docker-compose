@@ -25,6 +25,7 @@ RUN apt-get update \
     libtk-img \
     lxterminal \
     ethtool \
+    psmisc \
     && apt-get clean
 
 RUN pip3 install \
@@ -40,16 +41,12 @@ RUN wget --quiet https://github.com/coreemu/core/releases/download/release-6.0.0
 
 # MACI dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-    python-subprocess32 \
-    python-monotonic \
-    iperf \
+    && apt-get install -y --no-install-recommends iperf \
     && apt-get clean
 
 # install ssh deamon
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-    ssh \
+    && apt-get install -y --no-install-recommends ssh \
     && apt-get clean
 RUN mkdir /run/sshd
 COPY id_ed25519.pub /root/.ssh/authorized_keys
