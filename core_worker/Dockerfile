@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 LABEL maintainer="hoechst@mathematik.uni-marburg.de"
 LABEL name="maciresearch/core_worker"
-LABEL version="0.5.1"
+LABEL version="6.0.0-1"
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -15,8 +15,10 @@ RUN apt-get update \
     iproute2 \
     libev4 \
     python3 \
+    python3-setuptools \
     python3-pip \
     python3-future \
+    python3-tk \
     quagga \
     tcl \
     tk \
@@ -28,12 +30,13 @@ RUN apt-get update \
 RUN pip3 install \
     grpcio \
     protobuf \
-    lxml
+    lxml \
+    fabric
 
 # CORE
-RUN wget --quiet --no-check-certificate https://github.com/coreemu/core/releases/download/release-5.5.2/core_python3_5.5.2_amd64.deb \
-    && dpkg -i core_python3_5.5.2_amd64.deb \
-    && rm core_python3_5.5.2_amd64.deb
+RUN wget --quiet https://github.com/coreemu/core/releases/download/release-6.0.0/core_6.0.0_amd64.deb \
+    && dpkg -i core_6.0.0_amd64.deb \
+    && rm core_6.0.0_amd64.deb
 
 # MACI dependencies
 RUN apt-get update \
