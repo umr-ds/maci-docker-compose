@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 LABEL maintainer="msommer@informatik.uni-marburg.de"
 LABEL name="maciresearch/core_worker"
-LABEL version="6.1.0-2"
+LABEL version="6.2.0-1"
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -37,16 +37,18 @@ RUN apt update \
     psmisc \
     && apt clean
 
+RUN pip3 install grpcio
+
 RUN pip3 install \
-    grpcio \
     protobuf \
     lxml \
-    fabric
+    fabric \
+    pyproj
 
 # CORE
-RUN wget --quiet https://github.com/coreemu/core/releases/download/release-6.1.0/core_6.1.0_amd64.deb \
-    && dpkg -i core_6.1.0_amd64.deb \
-    && rm core_6.1.0_amd64.deb
+RUN wget --quiet https://github.com/coreemu/core/releases/download/release-6.2.0/core_6.2.0_amd64.deb \
+    && dpkg -i core_6.2.0_amd64.deb \
+    && rm core_6.2.0_amd64.deb
 
 # MACI dependencies
 RUN apt update \
