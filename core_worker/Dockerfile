@@ -1,22 +1,29 @@
 FROM ubuntu:18.04
-LABEL maintainer="hoechst@mathematik.uni-marburg.de"
+LABEL maintainer="msommer@informatik.uni-marburg.de"
 LABEL name="maciresearch/core_worker"
-LABEL version="6.1.0-1"
+LABEL version="6.1.0-2"
 
 ENV DEBIAN_FRONTEND noninteractive
 
+# update system
+
+RUN apt update && apt dist-upgrade
+
 # CORE dependencies
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+RUN apt update \
+    && apt install -y \
     wget \
     bridge-utils \
     ebtables \
     kmod \
     iproute2 \
     libev4 \
+    build-essential \
     python3 \
+    python3-dev \
     python3-setuptools \
     python3-pip \
+    python3-wheel \
     python3-future \
     python3-tk \
     python3-netaddr \
@@ -28,7 +35,7 @@ RUN apt-get update \
     lxterminal \
     ethtool \
     psmisc \
-    && apt-get clean
+    && apt clean
 
 RUN pip3 install \
     grpcio \
@@ -42,24 +49,25 @@ RUN wget --quiet https://github.com/coreemu/core/releases/download/release-6.1.0
     && rm core_6.1.0_amd64.deb
 
 # MACI dependencies
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends iperf \
-    && apt-get clean
+RUN apt update \
+    && apt install -y iperf \
+    && apt clean
 
 # install ssh deamon
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends ssh \
-    && apt-get clean
+RUN apt update \
+    && apt install -y ssh \
+    && apt clean
 RUN mkdir /run/sshd
 COPY id_ed25519.pub /root/.ssh/authorized_keys
 EXPOSE 22
 
 # development tools
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+RUN apt update \
+    && apt install -y \
     iputils-ping \
     net-tools \
     vim \
+    neovim \
     nano \
     && apt-get clean
 
