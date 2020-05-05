@@ -1,41 +1,15 @@
 FROM ubuntu:18.04
 LABEL maintainer="msommer@informatik.uni-marburg.de"
 LABEL name="maciresearch/core_worker"
-LABEL version="6.2.0-1"
+LABEL version="6.2.0-2"
 
 ENV DEBIAN_FRONTEND noninteractive
 
 # update system
-
 RUN apt update && apt dist-upgrade
 
-# CORE dependencies
-RUN apt update \
-    && apt install -y \
-    wget \
-    bridge-utils \
-    ebtables \
-    kmod \
-    iproute2 \
-    libev4 \
-    build-essential \
-    python3 \
-    python3-dev \
-    python3-setuptools \
-    python3-pip \
-    python3-wheel \
-    python3-future \
-    python3-tk \
-    python3-netaddr \
-    python3-mako \
-    quagga \
-    tcl \
-    tk \
-    libtk-img \
-    lxterminal \
-    ethtool \
-    psmisc \
-    && apt clean
+# CORE dependencies which can not be installed via the package manager
+RUN apt update && apt install -y python3-pip && apt clean
 
 RUN pip3 install grpcio
 
@@ -45,10 +19,21 @@ RUN pip3 install \
     fabric \
     pyproj
 
-# CORE
+# install wget so that we can download the CORE package
+RUN apt update && apt install -y wget && apt clean
+
+# install CORE
 RUN wget --quiet https://github.com/coreemu/core/releases/download/release-6.2.0/core_6.2.0_amd64.deb \
-    && dpkg -i core_6.2.0_amd64.deb \
+    && apt install -y ./core_6.2.0_amd64.deb \
+    && apt clean \
     && rm core_6.2.0_amd64.deb
+
+# install CORE dependencies which the CORE-package fails to declare
+RUN apt update \
+    && apt install -y \
+    python3-netaddr \
+    python3-mako \
+    && apt clean
 
 # MACI dependencies
 RUN apt update \
@@ -71,7 +56,7 @@ RUN apt update \
     vim \
     neovim \
     nano \
-    && apt-get clean
+    && apt clean
 
 ENV IDLE=-1
 
