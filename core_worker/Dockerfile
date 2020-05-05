@@ -1,38 +1,40 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 LABEL maintainer="msommer@informatik.uni-marburg.de"
 LABEL name="maciresearch/core_worker"
-LABEL version="6.2.0-2"
+LABEL version="6.3.0-1"
 
 ENV DEBIAN_FRONTEND noninteractive
 
 # update system
-RUN apt update && apt dist-upgrade
-
-# CORE dependencies which can not be installed via the package manager
-RUN apt update && apt install -y python3-pip && apt clean
-
-RUN pip3 install grpcio
-
-RUN pip3 install \
-    protobuf \
-    lxml \
-    fabric \
-    pyproj
+RUN apt update && apt dist-upgrade && apt clean
 
 # install wget so that we can download the CORE package
 RUN apt update && apt install -y wget && apt clean
 
 # install CORE
-RUN wget --quiet https://github.com/coreemu/core/releases/download/release-6.2.0/core_6.2.0_amd64.deb \
-    && apt install -y ./core_6.2.0_amd64.deb \
+RUN wget --quiet https://github.com/coreemu/core/releases/download/release-6.3.0/core_6.3.0_amd64.deb \
+    && apt install -y ./core_6.3.0_amd64.deb \
     && apt clean \
-    && rm core_6.2.0_amd64.deb
+    && rm core_6.3.0_amd64.deb
+
+# the CORE package installs the library to /usr/local/lib/python3.6/dist-packages
+# Ubuntu 20.04 ships with Python 3.8 however, so that path is not sreachred by default
+# For this reason we symlink it to the mor generel /usr/lib/python3/dist-packages
+RUN ln -s /usr/local/lib/python3.6/dist-packages/core /usr/lib/python3/dist-packages/ \
+    && ln -s /usr/local/lib/python3.6/dist-packages/core-6.3.0-py3.6.egg-info /usr/lib/python3/dist-packages/
 
 # install CORE dependencies which the CORE-package fails to declare
 RUN apt update \
     && apt install -y \
     python3-netaddr \
+    python3-grpcio \
+    python3-protobuf \
+    python3-fabric \
+    python3-decorator \
+    python3-lxml \
+    python3-pyproj \
     python3-mako \
+    python3-distutils \
     && apt clean
 
 # MACI dependencies
