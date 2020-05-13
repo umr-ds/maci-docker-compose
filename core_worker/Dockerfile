@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
-ARG COREVERSION=6.3.0
-ARG CONTRELEASE=2
+ARG COREVERSION=6.4.0
+ARG CONTRELEASE=1
 
 LABEL maintainer="msommer@informatik.uni-marburg.de"
 LABEL name="maciresearch/core_worker"
@@ -11,7 +11,7 @@ LABEL version="${COREVERSION}-${CONTRELEASE}"
 ENV DEBIAN_FRONTEND noninteractive
 
 # update system
-RUN apt update && apt dist-upgrade && apt clean
+RUN apt update && apt dist-upgrade -y && apt clean
 
 # install wget so that we can download the CORE package
 RUN apt update && apt install -y wget && apt clean
