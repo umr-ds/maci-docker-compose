@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 ARG COREVERSION=6.4.0
-ARG CONTRELEASE=1
+ARG CONTRELEASE=2
 
 LABEL maintainer="msommer@informatik.uni-marburg.de"
 LABEL name="maciresearch/core_worker"
@@ -40,6 +40,15 @@ RUN apt update \
     python3-pyproj \
     python3-mako \
     python3-distutils \
+    && apt clean
+
+# further dependencies
+# (I'm not sure if these  are just necessary for our usecase or if they are also erroneously undeclared)
+RUN apt update \
+    && apt install -y \
+    lxterminal \
+    bridge-utils \
+    psmisc \
     && apt clean
 
 # MACI dependencies
