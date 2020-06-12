@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
-ARG COREVERSION=6.4.0
-ARG CONTRELEASE=2
+ARG COREVERSION=6.5.0
+ARG CONTRELEASE=1
 
 LABEL maintainer="msommer@informatik.uni-marburg.de"
 LABEL name="maciresearch/core_worker"
