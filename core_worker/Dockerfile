@@ -1,78 +1,68 @@
 FROM ubuntu:20.04
 
-ARG COREVERSION=6.5.0
-ARG CONTRELEASE=1
+ARG CORE_TAG=release-7.0.1
 
 LABEL maintainer="msommer@informatik.uni-marburg.de"
 LABEL name="maciresearch/core_worker"
 LABEL url="https://github.com/umr-ds/maci-docker-compose"
-LABEL version="${COREVERSION}-${CONTRELEASE}"
+LABEL version="${CORE_TAG}-1"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# update system
-RUN apt update && apt dist-upgrade -y && apt clean
+# update system, install wget and python
+RUN apt-get update \
+    && apt-get dist-upgrade -y \
+    && apt-get install -y wget python3-pip \
+    && apt-get clean
 
-# install wget so that we can download the CORE package
-RUN apt update && apt install -y wget && apt clean
+RUN wget --quiet https://github.com/coreemu/core/archive/${CORE_TAG}.tar.gz \
+    && mkdir core \
+    && tar xf ${CORE_TAG}.tar.gz \
+    && mv /core-${CORE_TAG} /usr/local/share/core
 
-# install CORE
-RUN wget --quiet https://github.com/coreemu/core/releases/download/release-$COREVERSION/core_${COREVERSION}_amd64.deb \
-    && apt install -y ./core_${COREVERSION}_amd64.deb \
-    && apt clean \
-    && rm core_${COREVERSION}_amd64.deb
+WORKDIR "/usr/local/share/core"
 
-# the CORE package installs the library to /usr/local/lib/python3.6/dist-packages
-# Ubuntu 20.04 ships with Python 3.8 however, so that path is not sreachred by default
-# For this reason we symlink it to the mor generel /usr/lib/python3/dist-packages
-RUN ln -s /usr/local/lib/python3.6/dist-packages/core /usr/lib/python3/dist-packages/ \
-    && ln -s /usr/local/lib/python3.6/dist-packages/core-${COREVERSION}-py3.6.egg-info /usr/lib/python3/dist-packages/
+# Install CORE similar to core's tasks.py file
+RUN apt-get update \
+    && apt-get install -y automake pkg-config gcc libev-dev ebtables iproute2 ethtool tk python3-tk bash \
+    && apt-get clean
 
-# install CORE dependencies which the CORE-package fails to declare
-RUN apt update \
-    && apt install -y \
-    python3-netaddr \
-    python3-grpcio \
-    python3-protobuf \
-    python3-fabric \
-    python3-decorator \
-    python3-lxml \
-    python3-pyproj \
-    python3-mako \
-    python3-distutils \
-    && apt clean
+RUN python3 -m pip install --user grpcio==1.27.2 grpcio-tools==1.27.2
 
-# further dependencies
-# (I'm not sure if these  are just necessary for our usecase or if they are also erroneously undeclared)
-RUN apt update \
-    && apt install -y \
-    lxterminal \
-    bridge-utils \
-    psmisc \
-    && apt clean
+RUN ./bootstrap.sh
+RUN ./configure --prefix="/usr/local"
+RUN make -j$(nproc)
+RUN make install
+
+WORKDIR "/usr/local/share/core/daemon"
+RUN python3 -m pip install .
+
+RUN cp scripts/* "/usr/local/bin"
+RUN mkdir -p /etc/core
+RUN cp data/* /etc/core
 
 # MACI dependencies
-RUN apt update \
-    && apt install -y iperf \
-    && apt clean
+RUN apt-get update \
+    && apt-get install -y iperf \
+    && apt-get clean
 
 # install ssh deamon
-RUN apt update \
-    && apt install -y ssh \
-    && apt clean
+RUN apt-get update \
+    && apt-get install -y ssh \
+    && apt-get clean
 RUN mkdir /run/sshd
 COPY id_ed25519.pub /root/.ssh/authorized_keys
 EXPOSE 22
 
 # development tools
-RUN apt update \
-    && apt install -y \
+RUN apt-get update \
+    && apt-get install -y \
     iputils-ping \
     net-tools \
     vim \
     neovim \
     nano \
-    && apt clean
+    && apt-get clean
 
 ENV IDLE=-1
 
