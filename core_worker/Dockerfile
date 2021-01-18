@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ARG CORE_TAG=release-7.2.1
+ARG CORE_TAG=release-7.4.0
 
 LABEL maintainer="msommer@informatik.uni-marburg.de"
 LABEL name="maciresearch/core_worker"
